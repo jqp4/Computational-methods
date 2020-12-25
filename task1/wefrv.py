@@ -7,13 +7,17 @@ from linalg import det, inverse, print_matrix, cond, norm
 import numpy as np
 
 
+Testing = True
 
 def main():
+    print("\n"*50)
     dataset = DataSet()
     for i in range(dataset.len):
         print("--------------------------------------------")
         print("СЛАУ № {}:\n".format(i + 1))
         dataset.sle[i].show()
+        if Testing:
+            dataset.sle[i].showWolframType()
         print("  1) Решение заданной СЛАУ методом Гаусса:", end = "\n      ")
         X = gauss(dataset.sle[i], mainElement=False)
         if (X is None):

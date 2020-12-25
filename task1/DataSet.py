@@ -7,9 +7,10 @@ class DataSet:
             self.root = './Data/'
             # var 13
             self.sle = [self.getSLEfile(f'test{i + 1}.txt') for i in range(3)]
-            
+
             inpx = float(input("Введите x для вычисления матрицы из примера 2: "))
             self.sle.append(self.getSLEcustom(inpx))
+
             self.len = len(self.sle)
 
             myA = [[1.0, -2.0, 3.0, -4.0],
