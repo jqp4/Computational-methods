@@ -7,13 +7,10 @@ class DataSet:
             self.root = './Data/'
             # var 13
             self.sle = [self.getSLEfile(f'test{i + 1}.txt') for i in range(3)]
-            #inpx = float(input("Введите x для вычисления матрицы из примера 2: "))
-            #self.sle.append(self.getSLEcustom(inpx))
+            inpx = float(input("Введите x для вычисления матрицы из примера 2: "))
+            self.sle.append(self.getSLEcustom(inpx))
             self.len = len(self.sle)
             self.testsle = self.getSLEfile("testfile.txt")
-
-
-
       
 
       def getSLEfile(self, filename):
@@ -32,7 +29,7 @@ class DataSet:
       def getSLEcustom(self, x):
             # ex 2 var 4
             M = 4
-            n = 10 # 100
+            n = 10 # 100 # для простоты проверки
             e = 2.718281828459045
             # using Euler's formula: e^ix = cosx + isinx
             cos = lambda a: (e ** (a * 1j)).imag

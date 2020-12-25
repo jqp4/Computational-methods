@@ -1,21 +1,17 @@
 from SLE import SLE
 from Gauss import gauss
 from DataSet import DataSet
-from linalg import det, inverse, print_matrix, cond, norm
-
-
-import numpy as np
+from linalg import det, inverse, print_matrix, cond
 
 
 
 def main():
-    print("\n" * 50)
+    print("\n" * 30)
     dataset = DataSet()
     for i in range(dataset.len):
         print("--------------------------------------------")
         print("СЛАУ № {}:\n".format(i + 1))
         dataset.sle[i].show()
-        dataset.sle[i].showExcelType()
         print("  1) Решение заданной СЛАУ методом Гаусса:", end = "\n      ")
         X = gauss(dataset.sle[i], mainElement=False)
         if (X is None):
@@ -34,12 +30,7 @@ def main():
             print_matrix(inverse(dataset.sle[i].A), shift="      ")
 
             print("  4) Число обусловленности МA = ||A||×||A^-1||:")
-            #print("     norm(A) = {0:.2f}".format(norm(dataset.sle[i].A)))
-            #print("     norm(A^-1) = {0:.2f}".format(norm(inverse(dataset.sle[i].A))))
             print("     cond(A) = {0:.2f}".format(cond(dataset.sle[i].A)))
-            #print("     np.norm(A) = {0:.2f}".format(np.linalg.norm(dataset.sle[i].A)))
-            #print("     np.norm(A^-1) = {0:.2f}".format(np.linalg.norm(inverse(dataset.sle[i].A))))
-            #print("     np.cond(A) = {0:.2f}".format(np.linalg.cond(dataset.sle[i].A)))
             
 
     print("--------------------------------------------")

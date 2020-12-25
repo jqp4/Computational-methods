@@ -7,6 +7,7 @@ def swap(A, B, r1, r2):
         A[r1], A[r2] = A[r2], A[r1]
         B[r1], B[r2] = B[r2], B[r1]
 
+
 def triangleStep(A, B, col, BAct=True):
     div = A[col][col]
     A[col] = [a / div for a in A[col]]  #строка
@@ -18,11 +19,13 @@ def triangleStep(A, B, col, BAct=True):
         if BAct: B[r] += B[col] * mul
     return div
 
+
 def getCurRow(A, col):
     cr = None
     for r in range(col, len(A)):
         cr = r if cr is None or abs(A[r][col]) > abs(A[cr][col]) else cr     
     return cr
+
 
 def det(inpA):
     N = len(inpA)
@@ -40,6 +43,7 @@ def det(inpA):
         col += 1
     return determinant
 
+
 def minor(A, ix, jx):
     N = len(A)
     M = [[A[i][j] for j in range(N)] for i in range(N)]
@@ -48,6 +52,7 @@ def minor(A, ix, jx):
         del M[i][jx]
     return M
  
+
 def inverse(A):
     N = len(A)
     AT = [[A[i][j] for i in range(N)] for j in range(N)]     
@@ -56,8 +61,8 @@ def inverse(A):
         for j in range(N):
             tmp = minor(AT, i, j)
             result[i][j] = (-1 if (i + j) % 2 else 1) * det(tmp) / det(AT)
-    #result = [[(-1 if (i + j) % 2 else 1) * det(minor(AT, i, j)) / det(AT) for j in range(N)] for i in range(N)]
     return result
+
 
 vecnorm = lambda V : sum(x ** 2 for x in V)
 norm = lambda A : max([sum([abs(c) for c in row]) for row in A])
