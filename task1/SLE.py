@@ -4,10 +4,6 @@ class SLE:
         self.N = len(B)
         self.A = [[A[i][j] for j in range(self.N)] for i in range(self.N)]
         self.B = [B[i] for i in range(self.N)]
-        #for i in range(self.N):
-        #    for j in range(self.N):
-        #        self.A[i][j] = A[i][j]
-        #    self.B[i] = B[i]
 
 
     def deepcopy(self, A, B):
@@ -30,21 +26,41 @@ class SLE:
 
 
     def showWolframType(self):
-        # {a-b+c-d=0, 4a-b+0-d=0,2a+b-2c+d=0,5a+b-4d=0}
-        # {{-1, 4/3, -1/6, 1/6}, {-5, 26/3, -4/3, 1/3}, {-2, 7/2, -1/2, 0}, {7/4, -19/6, 7/12, -1/12}}
-        # var = lambda index: f"a{index}"
+        alph = list("qwrtuplkhgdsazvbnm")
         print(end="\nSLE in Wolfram language:\n{")
         for i in range(self.N):
             for j in range(self.N):
-                print("+({0:.4f}*a{1})".format(self.A[i][j], j + 1), end="")
-            print("={}".format(self.B[i]), end= ", " if i + 1 < self.N else "")
+                aij = self.A[i][j]
+                sign = ('+' if aij >= 0 else '') if i else ""
+                #print("{0}{1:.1f}a{2}".format('+' if aij >= 0 else '', aij, j + 1), end="")
+                print("{0}{1:.3f}{2}".format(sign, aij, alph[j]), end="")
+            print("={0:.3f}".format(self.B[i]), end= ", " if i + 1 < self.N else "")
         print(end="}\n")
         print(end="\nA matrix in Wolfram language:\n{")
         for i in range(self.N):
             print(end="{")
             for j in range(self.N):
-                print("{0:.4f}".format(self.A[i][j]), end= ", " if j + 1 < self.N else "")
+                print("{0:.3f}".format(self.A[i][j]), end= ", " if j + 1 < self.N else "")
             print(end= "}, " if i + 1 < self.N else "}")
         print(end="}\n")
+
+
+    def showExcelType(self):
+        alph = list("qwrtuplkhgdsazvbnm")
+        '''print(end="\nSLE in Wolfram language:\n{")
+        for i in range(self.N):
+            for j in range(self.N):
+                aij = self.A[i][j]
+                sign = ('+' if aij >= 0 else '') if i else ""
+                print("{0}{1:.1f}x{2}".format(sign, aij, j + 1), end="")
+            print("={0:.3f}".format(self.B[i]), end= ", " if i + 1 < self.N else "")
+        print(end="}\n")'''
+        print(end="\nA matrix in Excel language:\n")
+        for i in range(self.N):
+            print(end="")
+            for j in range(self.N):
+                print("{0:.5f}".format(self.A[i][j]), end= ", " if j + 1 < self.N else "")
+            print(end= "\n " if i + 1 < self.N else "")
+        print()
             
       
