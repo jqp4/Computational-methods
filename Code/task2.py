@@ -1,6 +1,5 @@
 from SLE import SLE
 from DataSet import DataSet
-from linalg import print_matrix, vecnorm
 
 
 
@@ -12,7 +11,7 @@ def main():
 
     w = 1
     it = 1
-    eps = 0.001
+    eps = 1e-4
     done = False
 
     x = [0 for i in range(sle.N)]
@@ -20,13 +19,18 @@ def main():
     while (not done):
         x = [xnext[i] for i in range(sle.N)]
         xnext = [0 for i in range(sle.N)]
+
+        
+
         for i in range(sle.N):
-            mul = sle.B[i]
+            delta = sle.B[i]
             for j in range(0, i):
-                mul -= sle.A[i][j] * xnext[j]
+                delta -= sle.A[i][j] * xnext[j]
             for j in range(i - 1, sle.N):
-                mul -= sle.A[i][j] * x[j]
-            xnext[i] = x[i] + w * mul / sle.A[i][i]
+                delta -= sle.A[i][j] * x[j]
+            delta *= w / sle.A[i][i]
+
+            xnext[i] = x[i] + delta
 
 
 
@@ -35,8 +39,7 @@ def main():
         v = sum([(xnext[i] - x[i]) ** 2 for i in range(sle.N)])
         done = v < eps
         it+=1
-        print("iter = {} ||xk+1 - x|| = {}\n    xk+1 = [".format(it, 
-            vecnorm([xnext[i] - x[i] for i in range(sle.N)])), end = "")
+        print("iteration = {0} norm = {1:.6f}\n\txk+1 = [".format(it, v), end = "")
         for i in range(sle.N):
             print("{0:.2f}".format(xnext[i]), end = ", ")
         print(end="]\n")
