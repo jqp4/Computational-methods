@@ -59,7 +59,7 @@ def inverse(A):
     #result = [[(-1 if (i + j) % 2 else 1) * det(minor(AT, i, j)) / det(AT) for j in range(N)] for i in range(N)]
     return result
 
-
+vecnorm = lambda V : sum(x ** 2 for x in V)
 norm = lambda A : max([sum([abs(c) for c in row]) for row in A])
 cond = lambda A : norm(A) * norm(inverse(A))
 
