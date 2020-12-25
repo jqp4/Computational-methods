@@ -9,7 +9,7 @@ import numpy as np
 
 
 def main():
-    print("\n"*50)
+    print("\n" * 50)
     dataset = DataSet()
     for i in range(dataset.len):
         print("--------------------------------------------")
