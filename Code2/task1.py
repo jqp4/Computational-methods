@@ -61,28 +61,22 @@ def Test1():
     ymin = yreal(x0 + l)
     xind = l / dind
     yind = (y0 - ymin) / dind
+    ns = [5, 10, 25]
 
-    for name, rk, ns in zip([2, 4], [rk2, rk4], [[5, 10, 25], [5, 10, 25]]):
+    for MethodIndex, rk in zip([2, 4], [rk2, rk4]):
         fig, ax = plt.subplots()
         X, Y = getReal(yreal, x0, l)
         plt.plot(X, Y, marker = 'o', color='greenyellow', label='Точное решение')
         for n, c in zip(ns, colors):
             X, Y = rk(f, x0, y0, l, n)
-            plt.plot(X, Y, color=c, label=f'{n} итераций')
-        
+            plt.plot(X, Y, color=c, label=f'{n} шагов')
         
         # Устанавливаем границы осей:
         ax.set_xlim([x0 - xind, x0 + l + xind])
         ax.set_ylim([ymin - yind, y0 + yind])
 
-        # Устанавливаем интервалы делений на осях x и y:
-        #ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
-        #ax.xaxis.set_minor_locator(ticker.MultipleLocator(0.1))
-        #ax.yaxis.set_major_locator(ticker.MultipleLocator(0.2))
-        #ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.1))
-
         # Оформляем графики:
-        plt.title(f'Метод Рунге-Кутта {name}-го порядка точности')
+        plt.title(f'Метод Рунге-Кутта {MethodIndex}-го порядка точности')
         plt.legend(loc='lower left')
         fig.set_figheight(height)
         fig.set_figwidth(width)
