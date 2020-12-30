@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from mpl_toolkits.mplot3d import Axes3D
-from RungeKuttaMethod import rk2, rk4, getReal, rk4_sys, getReal_sys
+from RungeKuttaMethod import rk2, rk4, getReal, rk4_sys
 
 
-width = 10
+width = 8
 height = 6
 colors = ['c', 'b', 'r', 'k', 'm', 'g']
 dind = 20
@@ -91,34 +91,32 @@ def Test2():
     l = 6
     e = 2.718281828459045
     # using Euler's formula: e^ix = cosx + isinx
-    #sin = lambda a: (e ** (a * 1j)).imag
-    #f1 = lambda x, y: sin(1.4 * y[0] ** 2) - x + y[1]
-    #f2 = lambda x, y: x + y[0] - 2.2 * y[1] ** 2 + 1
-    cos = lambda a: (e ** (a * 1j)).real
-    f1 = lambda x, y: cos(y[0] + 1.1 * y[1]) + 2.1
-    f2 = lambda x, y: 1.1 / (x + 2.1 * y[0] ** 2) + x + 1
-    f = lambda x, y: [f1(x, y), f2(x, y)]
-
-
+    sin = lambda a: (e ** (a * 1j)).imag
+    f1 = lambda x, y: sin(1.4 * y[0] ** 2) - x + y[1]
+    f2 = lambda x, y: x + y[0] - 2.2 * y[1] ** 2 + 1
+    #cos = lambda a: (e ** (a * 1j)).real
+    #f1 = lambda x, y: cos(y[0] + 1.1 * y[1]) + 2.1
+    #f2 = lambda x, y: 1.1 / (x + 2.1 * y[0] ** 2) + x + 1
+    fs = [f1, f2]
 
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
-    ns = [5, 10, 25]
+    ns = [10, 15, 45]
     for n, c in zip(ns, colors):
-        X, Y = rk4_sys(f, x0, y0, l, n)
+        X, Y = rk4_sys(fs, x0, y0, l, n)
         Ydivided = [[y[i] for y in Y] for i in [0, 1]]
         ax.plot(X, Ydivided[0], Ydivided[1], color=c, label=f'{n} шагов')
+        #ax.plot(X, Ydivided[0], color='r')
+        #ax.plot(X, Ydivided[1], color='b')
     
-
-
     # Оформляем графики:
     plt.title(f'Метод Рунге-Кутта 4-го порядка точности для системы')
-    plt.legend() # (loc='lower left')
     fig.set_figheight(height)
     fig.set_figwidth(width)
     ax.set_xlabel('X')
     ax.set_ylabel('U (Y[0])')
     ax.set_zlabel('V (Y[1])')
+    plt.legend()
     plt.grid()  
     plt.show()
 

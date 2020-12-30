@@ -33,9 +33,6 @@ def rk4(f, x0, y0, l, n):
 
 
 
-
-
-
 def linearComb(arrays, consts=[]):
     n = len(arrays[0])
     ans = [0 for i in range(n)]
@@ -49,59 +46,6 @@ def linearComb(arrays, consts=[]):
     return ans
 
 
-
-def rk4_sys(f, x0, y0, l, n):
-    # Метод Рунге-Кутта 4 порядка точности для системы
-    h = l / n
-    X = [x0 + i * h for i in range(n + 1)] # делим отрезок [x0, x0 + l] на n частей
-    Y = [y0] # y(x0) = y0
-    for i in range(n):
-        xi = X[i]
-        yi = Y[i]
-        #k1 = f(xi, yi)
-        #k2 = f(xi + h / 2, linearComb([yi, k1], [1, h / 2]))
-        #k3 = f(xi + h / 2, linearComb([yi, k2], [1, h / 2]))
-        #k4 = f(xi + h, linearComb([yi, k3], [1, h]))
-
-        #k2 = f(xi + h / 2, yi + k1 * h / 2)
-        #k3 = f(xi + h / 2, yi + k2 * h / 2)
-        #k4 = f(xi + h, yi + k3 * h)
-
-
-
-
-        k1 = f(xi, yi)
-        lll = [yi[j] + k1[j] * h / 2 for j in [0, 1]]
-        k2 = f(xi + h / 2, lll)
-        lll = [yi[j] + k2[j] * h / 2 for j in [0, 1]]
-        k3 = f(xi + h / 2, lll)
-        lll = [yi[j] + k3[j] * h for j in [0, 1]]
-        k4 = f(xi + h, lll)
-
-        print(f"i = {i}, xi = {xi}")
-        print(k1)
-        print(k2)
-        print(k3)
-        print(k4)
-        print()
-
-
-
-
-
-
-
-
-
-
-
-
-
-        lll = linearComb([k1, k2, k3, k4], [1, 2, 2, 1])
-        Y.append(linearComb([yi, lll], [1, h/6]))
-    return X, Y
-
-
 def getReal(f, x0, l):
     n = 40
     h = l / n
@@ -111,9 +55,32 @@ def getReal(f, x0, l):
 
 
 
-def getReal_sys(f, x0, l):
-    n = 40
+def rk4_sys(fs, x0, y0, l, n):
+    # Метод Рунге-Кутта 4 порядка точности для системы
     h = l / n
-    X = [x0 + i * h for i in range(n + 1)] # делим ось x на отрезки
-    Y = [f(x) for x in X]
+    X = [x0 + i * h for i in range(n + 1)] # делим отрезок [x0, x0 + l] на n частей
+    Y = [y0] # y(x0) = y0
+    indexGen = range(len(y0))
+    f = lambda x, y: [fs[0](x, y), fs[1](x, y)]
+    for i in range(n):
+        xi = X[i]
+        yi = Y[i]
+
+        k1 = f(xi, yi)
+        tmp = [yi[j] + k1[j] * h / 2 for j in indexGen]
+        k2 = f(xi + h / 2, tmp)
+        tmp = [yi[j] + k2[j] * h / 2 for j in indexGen]
+        k3 = f(xi + h / 2, tmp)
+        tmp = [yi[j] + k3[j] * h for j in indexGen]
+        k4 = f(xi + h, tmp)
+
+        #print(f"\ni = {i}, xi = {xi}")
+        #for ki, k in enumerate([k1, k2, k3, k4]):
+        #    print("{0} : {1:6.3f}, {2:6.3f}".format(ki, k[0], k[1]))
+
+        # По рекурентной формуле вычисляем следующий y:
+        tmp = [k1[j] + 2 * (k3[j] + k3[j]) + k4[j] for j in indexGen]
+        Y.append([yi[j] + tmp[j] * h / 6 for j in indexGen])
     return X, Y
+
+
