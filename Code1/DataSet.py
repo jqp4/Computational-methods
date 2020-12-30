@@ -32,7 +32,7 @@ class DataSet:
             n = 10 # 100 # для простоты проверки
             e = 2.718281828459045
             # using Euler's formula: e^ix = cosx + isinx
-            cos = lambda a: (e ** (a * 1j)).imag
+            cos = lambda a: (e ** (a * 1j)).real
             bi = lambda i: n * e ** (x / i) * cos(x)
             qm = 1.001 - 2 * M * 0.001
             Aij = lambda i, j: qm**(i+j) + 0.1 * (j-i) if i!=j else (qm-1)**(i+j)
