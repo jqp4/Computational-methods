@@ -12,7 +12,7 @@ class DifferentialEquation:
 
 from numpy.linalg import solve as nplMatrSolve
 
-def lll(de, x0, xn, n):
+def finiteDifferenceMethod(de, x0, xn, n):
     h = (xn - x0) / n
     # делим отрезок [x0, x0 + l] на n частей:
     X = [x0 + i * h for i in range(n + 1)]
@@ -43,6 +43,11 @@ def lll(de, x0, xn, n):
     return X, Y
 
 
-
-
-
+# Функция для получения точек графика реальной функции:
+def getReal(f, x0, xn):
+    n = 40
+    h = (xn - x0) / n
+    # делим отрезок [x0, x0 + l] на n частей:
+    X = [x0 + i * h for i in range(n + 1)]
+    Y = [f(x) for x in X]
+    return X, Y
