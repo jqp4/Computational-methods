@@ -14,10 +14,7 @@ COLORS = ['c', 'b', 'r', 'k', 'm']
 
 
 
-
-
 def main():
-    print('\n' * 30)
     # Вариант 8
     # Определяем начальные данные:
     x0 = 0.2
@@ -30,15 +27,14 @@ def main():
     delta = [2, 1]
     de = DifferentialEquation(p, q, f, sigma, gamma, delta)
 
-    ns = [50]
+
+
+    ns = [5, 25, 125, 625]
     fig, ax = plt.subplots()
     for n, c in zip(ns, COLORS):
         X, Y = lll(de, x0, xn, n)
         plt.plot(X, Y, color=c, label=f'{n} шагов')
     
-
-
-
 
 
     # Оформляем графики:
