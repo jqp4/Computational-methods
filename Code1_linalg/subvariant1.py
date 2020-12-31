@@ -1,7 +1,7 @@
 from SLE import SLE
 from Gauss import gauss
 from DataSet import DataSet
-from linalg import det, inverse, print_matrix, cond
+from Linalg import det, inverse, print_matrix, cond
 
 
 

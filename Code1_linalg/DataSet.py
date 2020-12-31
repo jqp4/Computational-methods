@@ -10,7 +10,6 @@ class DataSet:
             inpx = float(input("Введите x для вычисления матрицы из примера 2: "))
             self.sle.append(self.getSLEcustom(inpx))
             self.len = len(self.sle)
-            self.testsle = self.getSLEfile("testfile.txt")
       
 
       def getSLEfile(self, filename):

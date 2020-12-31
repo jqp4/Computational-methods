@@ -1,5 +1,5 @@
 from SLE import SLE
-from linalg import *
+from Linalg import *
     
 
 
