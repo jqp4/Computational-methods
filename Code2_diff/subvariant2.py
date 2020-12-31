@@ -17,19 +17,17 @@ COLORS = ['c', 'b', 'r', 'k', 'm']
 def main():
     # Вариант 8
     # Определяем начальные данные:
-    x0 = 0.2
-    xn = 0.5
-    p = lambda x: 2
+    x0 = 1.2
+    xn = 1.5
+    p = lambda x: 3
     q = lambda x: -1 / x
-    f = lambda x: 3
-    sigma = [1, 0.5]
+    f = lambda x: x + 1
+    sigma = [1, 2]
     gamma = [0, -1]
-    delta = [2, 1]
+    delta = [1, 0.5]
     de = DifferentialEquation(p, q, f, sigma, gamma, delta)
 
-
-
-    ns = [5, 25, 125, 625]
+    ns = [25, 150, 700, 3500]
     fig, ax = plt.subplots()
     for n, c in zip(ns, COLORS):
         X, Y = lll(de, x0, xn, n)
